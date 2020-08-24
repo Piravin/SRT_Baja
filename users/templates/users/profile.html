@@ -1,0 +1,25 @@
+{%extends 'users/base.html'%}
+{%load crispy_forms_tags%}
+{%block form%}
+    <div class="content-section container">
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{user.profile.image.url}}" height="200px" width="200px">
+            <div class="media-body">
+                <h2 class="text-secondary">{{user.username}}</h2>
+                <p class="text-secondaty">{{user.email}}</p>
+            </div>
+        </div>
+        <form method= "POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Edit Profile</legend>
+                {{u_form|crispy}}
+                {{p_form|crispy}}
+            <a href="{%url 'password-reset'%}" class="btn btn-outline-secondary">Reset Password</a>
+
+            </fieldset>
+            <button class="btn btn-outline-info" type="submit">Update</button>
+            <a href="{%url 'homepage'%}" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+    </div>
+{%endblock%}

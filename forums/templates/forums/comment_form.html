@@ -1,0 +1,14 @@
+{%extends 'forums/forum.html'%}
+{%load crispy_forms_tags%}
+{%load static%}
+{%block post%}
+    <form method="POST">
+        {%csrf_token%}
+        {{ form.media }}
+        {{ form.as_p }}
+
+        
+        <button class="btn btn-success" style="margin:10px" type="submit">Submit comment</button>
+    <button class="btn btn-secondary" style="margin:10px" onclick = "goBack()">Cancel</button>
+    </form>
+{%endblock post%}

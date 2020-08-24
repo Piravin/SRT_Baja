@@ -1,0 +1,176 @@
+{%load static%}
+{%load rest_framework%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'home/main.css'%}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'SRT_LOGO_icon.png' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Domine:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,500&display=swap" rel="stylesheet">
+    <title>SASTRA Racing Team - Baja</title>
+</head>
+<body>
+    <div class="loader" >
+        <img src="{{items.logo.url}}" class="loaderlogo" height="270px" width="480px">
+    </div>
+    
+    <div id="parallex1" style="background-image: url('{{items.backgroundimage1.url}}');">
+        <div class="head">
+            <div class="logo">
+                <img src="{{items.logo.url}}" class="logopic">
+            </div>
+            <dvi class="ham" id="ham">
+                <div class="ham1" id="ham1"></div>
+                <div class="ham2" id="ham2"></div>
+                <div class="ham3" id="ham3"></div>
+            </dvi>
+        <div class="navbar" id="navbar">
+                <div class="pages">
+                    <a href="{%url 'homepage'%}" class="home page activepage">Home</a>
+                    <a class="cars page a" href="{%url 'carspage'%}">Cars</a>
+                    <a href="{%url 'teampage'%}" class="team page">Team</a>
+                    <a href="#" class="crowdfunding page">Crowdfunding</a>
+                    <a href="#sponsors" class="sponsors page">Sponsors</a>
+                    <a class="courses page" href="{%url 'forums'%}">Forums</a>
+                    <a class="contacts page" href="#contacts">Contact</a>
+                    
+                </div>
+                <div class="logs">
+                    {%if request.user.is_authenticated%}
+                        <a href="{%url 'logout'%}" class="logout log">Logout</a>
+                        <a href="{%url 'profile'%}"><img class="profilepic" src="{{request.user.profile.image.url}}" alt=""></a>
+                    {%else%}
+                        <a href="{%url 'login'%}" class="login log">Login</a>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+        <div class="quotecontainer">
+            <h1>{{items.quote1}}</h1>
+            <h2>{{items.quote2}}</h2>
+        </div>
+        <div class="buts">
+            <a href="#more">Sponsor Us</a>
+            <a href="#more">Learn With Us</a>
+        </div>
+        <a href="#more" id=morbut>More About Us</a>
+    </div>
+    
+    <div class="video-container" id="more">
+        <div class="videodiscription">
+            <h1>About us</h1>
+            <p class="desc">{{items.video_description}}
+            </p>
+            <a href="#contacts"><div class="supbut">Support Us</div></a>
+        </div>
+        <div class="video"><iframe width="800" height="450" src="{{items.video}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+        <div class="firstcontent">
+            <div class="slide fade">
+                <a href="#" id="slilink"><img id="slide" src="" class="rounded-corners" height="270px" width="480px"></a>
+            </div>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        
+
+    </div>
+    <div class="belowcontainer">
+        <div class="spons">Our Sponsors</div>
+        <div class="spon-wrapper">
+            <div class="sponcer-container" id="sponsors">
+                {%for spon in sponsors%}
+                    <div class="sponcer"><a href="#"><img src="{{spon.sponsor.url}}" class="rounded-corners" height="150px" width="266px"></a></div>
+                {%endfor%}
+            </div>
+            <div class="belobut">
+                <a href="#contacts"><div class="join">Join The Family</div></a>
+            </div>
+            
+        </div>
+           
+        
+    </div>
+    <div class="cont-cont">
+        <div id="contacts">
+            <div class="map-cont" style="padding:20px;">
+                <iframe class="map" style="border-radius: 5px;" width="400" height="300" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=sastra%20university&key={{ACCESS_KEY}}" allowfullscreen></iframe>
+            </div>
+            <form id="svform" action="." enctype="multipart/form-data">
+                {%csrf_token%}
+                <label style="text-align: left; font-family: 'Times New Roman', Times, serif;">Write to us </label>
+                <div>
+                    <input id="name" type="text" name="name" placeholder="Your name.." required>
+                </div>
+                <div>
+                    <input id="email" type="email" name="email" placeholder="Your email id.." required>
+                </div>
+                <div>
+                    <input id="mobile" type="text" name="mobile" placeholder="Mobile number.." >
+                </div>
+                <div>
+                    <input id="subject" type="text" name="subject" placeholder="Subject.." >
+                </div>
+                <div style="padding-top: 20px;">
+                    <textarea id="msg" name="message" required placeholder="Write a message..." ></textarea>
+                </div>
+                <button type="submit" id="savemsg">Send</button>
+                <button type="reset">Reset</button>
+            </form>
+            
+            
+            
+        </div>
+    </div>
+
+
+    <div class="foot">
+        
+        
+        <div class="general">
+            <pre style="padding: 10px;">{{items.contacts}}</pre>
+        </div>
+        <div class="socicons">
+            <div class="phone">
+                <a href="tel:{{contacts.phone_no}}" style="text-decoration: none; color:burlywood;font-size: 40px;"><i class="fa fa-phone" aria-hidden="true"></i></a>
+            </div>
+            <div class="twitter">
+                <a href="{{contacts.twitter}}" target="_blank" style="text-decoration: none; color:burlywood;font-size: 40px;"><i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+
+            </div>
+            <div class="fb">
+                <a href="{{contacts.facebook}}" target="_blank" style="text-decoration: none; color:burlywood;font-size: 40px;"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+            </div>
+            <div class="insta">
+                <a href="{{contacts.instagram}}" target="_blank" style="text-decoration: none; color:burlywood;font-size: 40px;"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+            </div>
+            <div class="mail">
+                <a href="mailto:{{contacts.email}}" style="text-decoration: none; color:burlywood;font-size: 40px;"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                <a id="mail" href="mailto:{{contacts.email}}" style="text-decoration: none; color:burlywood;font-size: 20px; padding: 10px;">sastraracingteambaja@gmail.com</a>
+            </div> 
+        </div>
+        
+    </div>
+    <a href="#" onclick="tktotol()" id="totop"><div class="baktoc"><i class="fa fa-angle-up upbutcar" aria-hidden="true"></i></div></a>
+    <script src="{% static 'home/jquery.js'%}"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v7.0" nonce="2e8qM6JO"></script>
+    <script src="{%static 'home/script.js'%}"></script>
+    <script>
+        function tktotop(){
+            window.scrollTo(0,0);
+        }
+        var totop = document.getElementById("totop");
+        window.addEventListener("scroll",()=>{
+            if(window.pageYOffset>200){
+                totop.style.display = "block";
+            }else{
+                totop.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'home/main.css'%}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Domine:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,500&display=swap" rel="stylesheet">
+    <title>SRT-Baja | Cars</title>
+</head>
+<body style="background-color: rgb(51, 51, 51)!important; margin-top: 0;padding-top: 30px;padding-bottom: 30px;">
+    <a href="{%url 'carspage'%}"><div class="carback" id="top"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back</a></div>
+    
+    <div class="carfirst">
+        <div class="carfil"></div>
+        <div class="carnam">{{car.name}}</div>
+        <div class="car1">
+            <img src="{{car.carpic.url}}" width="100%" height=auto>
+            
+        </div>
+            
+        <div class="carteamcont">
+            <h1 class="teamh1">The Team</h1>
+            <ul class="carteam" style="margin-left: 40px">
+                {%for member in members%}
+                    <li>{{member.name}}</li>
+                {%endfor%}
+            </ul>
+        </div>
+    </div>
+        
+
+    </div>
+    <div class="car2">
+        <div class="cardesc">
+            {%for detail in details%}
+                <div class="carprop">
+                    <h1>{{detail.topic}}</h1>
+                    <p>{{detail.description | safe}}</p>
+                </div>
+            {%endfor%}
+        </div>
+    </div>
+    <div class="carback carback2"><a href="{%url 'carspage'%}"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back</a></div>
+    <a href="#top" id="totop"><div class="baktoc"><i class="fa fa-angle-up upbutcar" aria-hidden="true"></i>
+    </div></a>
+    <script>
+        var totop = document.getElementById("totop");
+        window.addEventListener("scroll",()=>{
+            if(window.pageYOffset>200){
+                totop.style.display = "block";
+            }else{
+                totop.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>   

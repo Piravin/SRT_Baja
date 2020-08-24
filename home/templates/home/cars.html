@@ -1,0 +1,111 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'home/main.css'%}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Domine:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,500&display=swap" rel="stylesheet">
+    <title>SRT-Baja | Cars</title>
+</head>
+<body style="background-color: rgb(20, 20, 20);">
+    {%block car%}
+    <div class="head" style="background-color: rgb(0, 0, 0);">
+        <div class="logo">
+            <img src="{{items.logo.url}}" class="logopic">
+        </div>
+        <dvi class="ham" id="ham">
+            <div class="ham1" id="ham1"></div>
+            <div class="ham2" id="ham2"></div>
+            <div class="ham3" id="ham3"></div>
+        </dvi>
+        <div class="navbar" id="navbar">
+            <div class="pages">
+                <a href="{%url 'homepage'%}" class="home page">Home</a>
+                <a class="cars page activepage" href="{%url 'carspage'%}">Cars</a>
+                <a href="{%url 'teampage'%}" class="team page">Team</a>
+                <a href="{%url 'homepage'%}#contacts" class="crowdfunding page">Crowdfunding</a>
+                <a href="{%url 'homepage'%}#sponsors" class="sponsors page">Sponsors</a>
+                <a class="courses page" href="{%url 'forums'%}">Forums</a>
+                <a class="contacts page" href="{%url 'homepage'%}#contacts">Contact</a>
+                
+            </div>
+            <div class="logs">
+                {%if request.user.is_authenticated%}
+                    <a href="{%url 'logout'%}" class="login log">Logout</a>
+                    <a href="{%url 'profile'%}"><img class="profilepic" src="{{request.user.profile.image.url}}" alt=""></a>
+                {%else%}
+                    <a href="{%url 'login'%}" class="login log">Login</a>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+    
+    <div class="carlistcont">
+        {%for car in cars%}
+            <a href="{% url 'cardetail' car.team.year%}"><div class="car-box" style="background-image: url({{car.carpic.url}});">
+                <div class="carname"><p>{{car.team.year}}</p></div>
+            </div></a>
+        {%endfor%}
+    </div>
+    {%endblock car%}
+    <div class="foot">
+        
+        
+        <div class="general">
+            <pre style="padding: 10px;">{{items.contacts}}</pre>
+        </div>
+        <div class="socicons">
+            <div class="phone">
+                <a href="tel:{{contacts.phone_no}}" style="text-decoration: none; color:burlywood;font-size: 40px;"><i class="fa fa-phone" aria-hidden="true"></i></a>
+            </div>
+            <div class="twitter">
+                <a href="{{contacts.twitter}}" target="_blank" style="text-decoration: none; color:burlywood;font-size: 40px;"><i class="fa fa-twitter" aria-hidden="true"></i>
+                </a>
+
+            </div>
+            <div class="fb">
+                <a href="{{contacts.facebook}}" target="_blank" style="text-decoration: none; color:burlywood;font-size: 40px;"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+            </div>
+            <div class="insta">
+                <a href="{{contacts.instagram}}" target="_blank" style="text-decoration: none; color:burlywood;font-size: 40px;"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+            </div>
+            <div class="mail">
+                <a href="mailto:{{contacts.email}}" style="text-decoration: none; color:burlywood;font-size: 40px;"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                <a id="mail" href="mailto:{{contacts.email}}" style="text-decoration: none; color:burlywood;font-size: 20px; padding: 10px;">sastraracingteambaja@gmail.com</a>
+            </div> 
+        </div>
+        
+    </div>
+    <script>
+        var ham = document.getElementById("ham");
+        var ham1 = document.getElementById("ham1");
+        var ham2 = document.getElementById("ham2");
+        var ham3 = document.getElementById("ham3");
+        var clicked=1;
+        ham.addEventListener("click",()=>{
+            if(clicked){
+                navbar.style.right="0";
+                ham1.style.transform="rotate(45deg) translate(7px,7px)";
+
+                ham3.style.transform="rotate(-45deg) translate(7px,-7px)";
+
+                ham2.style.display="none";
+                clicked=0;
+            }
+            else{
+                navbar.style.right="-100%";
+                ham1.style.transform="rotate(0)";
+                ham3.style.transform="rotate(0)";
+                ham2.style.display="block";
+                clicked=1;
+            }
+            
+        });
+    </script>
+    <script src="{%static 'home/script.js'%}"></script>
+</body>
+</html>

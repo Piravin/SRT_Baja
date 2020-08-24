@@ -1,0 +1,16 @@
+{%extends 'forums/forum.html'%}
+{%load crispy_forms_tags%}
+{%load static%}
+{%block post%}
+    <button onclick="goBack()" class="goBack"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i>  Back</button>
+    <div class="container-form">
+    <form method="POST">
+        {%csrf_token%}
+        {{form|crispy}}
+        {{ form.media }}
+
+        
+        <button type="submit" class="submit btn btn-success" style="margin:10px">Submit</button>
+    </form>
+    </div>
+{%endblock post%}
