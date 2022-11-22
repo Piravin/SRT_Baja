@@ -35,7 +35,7 @@ node==0.9.25
 numpy==1.18.4
 oauthlib==3.1.0
 odict==1.7.0
-Pillow==8.3.2
+Pillow==9.3.0
 plumber==1.5
 protobuf==3.12.2
 psycopg2==2.8.5
